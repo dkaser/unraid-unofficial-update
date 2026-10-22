@@ -4,7 +4,7 @@
 <PLUGIN 
   name="unofficial-update"
   author="Derek Kaser"
-  version="1.0.0"
+  version="2026.10.21.2239"
   
   pluginURL="https://raw.githubusercontent.com/dkaser/unraid-unofficial-update/main/plugin/unofficial-update.plg"
   support="https://forums.unraid.net/"
@@ -15,6 +15,10 @@
 
 <CHANGES>
 <![CDATA[
+
+### 2026.10.21.2239
+
+- Fix name in UI
 
 ### 1.0.0
 
@@ -30,9 +34,9 @@ For older releases, see https://github.com/dkaser/unraid-unofficial-update/relea
 <SHA256>bd336b3d3316c7ea2bc5dfd6d6fb2ea20ef33d123ec9cefb8d926e4043b80c69</SHA256>
 </FILE>
 
-<FILE Name="/boot/config/plugins/unofficial-update/unraid-unofficial-update-1.0.0-noarch-1.txz">
-<URL>https://github.com/dkaser/unraid-unofficial-update/releases/download/1.0.0/unraid-unofficial-update-1.0.0-noarch-1.txz</URL>
-<SHA256>2e03431e21c286f2514d4d506ba889612a47c608326907df8d3cbb6d865a10c2</SHA256>
+<FILE Name="/boot/config/plugins/unofficial-update/unraid-unofficial-update-2026.10.21.2239-noarch-1.txz">
+<URL>https://github.com/dkaser/unraid-unofficial-update/releases/download/2026.10.21.2239/unraid-unofficial-update-2026.10.21.2239-noarch-1.txz</URL>
+<SHA256>f39f656e16c3d85f170aebdb73cf4f0a1b458fd1031a63e6af8286c0bc7e7ee6</SHA256>
 </FILE>
 
 <!--
@@ -41,7 +45,7 @@ The 'install' script.
 <FILE Run="/bin/bash">
 <INLINE>
 <![CDATA[
-upgradepkg --install-new /boot/config/plugins/unofficial-update/unraid-unofficial-update-1.0.0-noarch-1.txz
+upgradepkg --install-new /boot/config/plugins/unofficial-update/unraid-unofficial-update-2026.10.21.2239-noarch-1.txz
 
 # Patch affected PHP versions and restart PHP-FPM after a successful upgrade.
 if php -r 'exit(version_compare(PHP_VERSION, "8.4", ">") && version_compare(PHP_VERSION, "8.4.27", "<") ? 0 : 1);'; then
@@ -50,13 +54,13 @@ if php -r 'exit(version_compare(PHP_VERSION, "8.4", ">") && version_compare(PHP_
 fi
 
 # cleanup old versions
-rm -f $(ls /boot/config/plugins/unofficial-update/unraid-unofficial-update-*.txz 2>/dev/null | grep -v '1.0.0')
+rm -f $(ls /boot/config/plugins/unofficial-update/unraid-unofficial-update-*.txz 2>/dev/null | grep -v '2026.10.21.2239')
 rm -f $(ls /boot/config/plugins/unofficial-update/docker-*.tgz 2>/dev/null | grep -v '')
 
 echo ""
 echo "----------------------------------------------------"
 echo " unofficial-update has been installed."
-echo " Version: 1.0.0"
+echo " Version: 2026.10.21.2239"
 echo "----------------------------------------------------"
 echo ""
 ]]>
