@@ -3,5 +3,6 @@
     "package_name": "unraid-unofficial-update",
     "author": "Derek Kaser",
     "support": "https://forums.unraid.net/",
-    "icon": "fa-cog"
+    "icon": "fa-cog",
+    "min": "7.3.0"
 }
