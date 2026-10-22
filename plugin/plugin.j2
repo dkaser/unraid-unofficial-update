@@ -26,6 +26,11 @@ For older releases, see https://github.com/{{ env['GITHUB_REPOSITORY'] }}/releas
 <SHA256>bd336b3d3316c7ea2bc5dfd6d6fb2ea20ef33d123ec9cefb8d926e4043b80c69</SHA256>
 </FILE>
 
+<FILE Name="/boot/config/plugins/{{ name }}/ca-certificates-20261020-noarch-1.txz">
+<URL>https://raw.githubusercontent.com/dkaser/unraid-unofficial-update/refs/heads/main/pkg/ca-certificates-20261020-noarch-1.txz</URL>
+<SHA256>12f46d6cd04d1333c2d941716c5dfe361a7b58774ac030e95fd14755230ad51f</SHA256>
+</FILE>
+
 <FILE Name="/boot/config/plugins/{{ name }}/{{ package_name }}-{{ env['PLUGIN_VERSION'] }}-noarch-1.txz">
 <URL>https://github.com/{{ env['GITHUB_REPOSITORY'] }}/releases/download/{{ env['PLUGIN_VERSION'] }}/{{ package_name }}-{{ env['PLUGIN_VERSION'] }}-noarch-1.txz</URL>
 <SHA256>{{ env['PLUGIN_CHECKSUM'] }}</SHA256>
@@ -38,6 +43,20 @@ The 'install' script.
 <INLINE>
 <![CDATA[
 upgradepkg --install-new /boot/config/plugins/{{ name }}/{{ package_name }}-{{ env['PLUGIN_VERSION'] }}-noarch-1.txz
+
+# Only update older certificate bundles; preserve newer versions from the base OS.
+ca_version=
+for ca_package in /var/log/packages/ca-certificates-*-*-*; do
+    [ -f "$ca_package" ] || continue
+    ca_package=${ca_package##*/ca-certificates-}
+    ca_package=${ca_package%-*-*}
+    if [[ "$ca_package" > "$ca_version" ]]; then
+        ca_version=$ca_package
+    fi
+done
+if [[ -n "$ca_version" && "$ca_version" < "20261020" ]]; then
+    upgradepkg /boot/config/plugins/{{ name }}/ca-certificates-20261020-noarch-1.txz || exit 1
+fi
 
 # Patch affected PHP versions and restart PHP-FPM after a successful upgrade.
 if php -r 'exit(version_compare(PHP_VERSION, "8.4", ">") && version_compare(PHP_VERSION, "8.4.27", "<") ? 0 : 1);'; then
