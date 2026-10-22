@@ -1,0 +1,7 @@
+{
+    "name": "unofficial-update",
+    "package_name": "unraid-unofficial-update",
+    "author": "Derek Kaser",
+    "support": "https://forums.unraid.net/",
+    "icon": "fa-cog"
+}
