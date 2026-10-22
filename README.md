@@ -1,6 +1,6 @@
 # Unofficial Update Plugin for Unraid
 
-Updates Unraid 7.3/7.4 to PHP 8.4.27 and updates the ca-certificates package to remove the eMudhra certificates.
+Updates Unraid 7.2.8/7.3/7.4 to PHP 8.4.27 and updates the ca-certificates package to remove the eMudhra certificates.
 
 ## Installation Instructions
 
